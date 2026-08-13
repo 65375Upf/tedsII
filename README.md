@@ -1,5 +1,6 @@
 # API de Ponto Eletrônico (Node.js + Express)
 
+
 Evolução da API de cadastro de usuários (Node.js, Express, SQLite via `better-sqlite3`,
 autenticação JWT) para um **sistema de gerenciamento de relógio ponto**, com dois perfis de
 acesso: **Colaboradores** (registram entrada/saída e acompanham suas horas) e
