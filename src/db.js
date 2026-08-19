@@ -51,6 +51,9 @@ adicionarColuna('valor_hora REAL', 'valor_hora');
 adicionarColuna('carga_horaria_diaria REAL', 'carga_horaria_diaria');
 adicionarColuna('carga_horaria_semanal REAL', 'carga_horaria_semanal');
 
+//estou adicionando uma coluna para armazenar a biometria do usuario
+adicionarColuna('biometria BLOB', 'biometria');
+
 // UNIQUE em cpf precisa ser um índice separado: o SQLite não permite
 // "ADD COLUMN ... UNIQUE" diretamente. Um índice único comum já trata
 // múltiplos NULLs como distintos, então usuários antigos sem CPF não conflitam.

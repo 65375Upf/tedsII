@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import usuarioRoutes from './routes/usuarioRoutes.js';
+import biometriaRoutes from './routes/biometriaRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/usuarios', usuarioRoutes);
+app.use('/biometria', biometriaRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
