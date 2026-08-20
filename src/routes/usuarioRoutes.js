@@ -16,5 +16,6 @@ router.delete('/:id', permitir('ADMIN'), usuarioController.remover);
 
 router.get('/:id/remuneracao', usuarioController.buscarRemuneracao);
 router.patch('/:id/remuneracao', permitir('ADMIN'), asyncHandler(usuarioController.atualizarRemuneracao));
+router.get('/:id/folha/pre-calculo', permitir('ADMIN'), usuarioController.preCalculaSalario);
 
 export default router;

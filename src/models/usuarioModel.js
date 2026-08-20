@@ -142,3 +142,73 @@ export function remover(id) {
   const info = db.prepare('DELETE FROM usuarios WHERE id = ?').run(id);
   return info.changes > 0;
 }
+
+// ---------------------------------------------------------------------------
+// Pré-cálculo de Salário
+// ---------------------------------------------------------------------------
+
+export function buscarUsuarioPorId(id) {
+  return db.prepare(`
+    SELECT
+      u.id AS usuarioId,
+      u.nome,
+      u.email,
+      u.cpf,
+      u.role,
+      u.cargo,
+      u.departamento,
+      u.data_admissao AS dataAdmissao,
+      u.valor_hora AS valorHora,
+      u.carga_horaria_diaria AS cargaHorariaDiaria,
+      u.carga_horaria_semanal AS cargaHorariaSemanal
+    FROM usuarios u
+    WHERE u.id = ?
+  `).get(id);
+}
+
+export function buscarHorasPorPeriodo(usuarioId, dataInicio, dataFim) {
+  return db.prepare(`
+    SELECT
+      rp.data,
+      rp.entrada,
+      rp.saida_almoco,
+      rp.retorno_almoco,
+      rp.saida
+    FROM registros_ponto rp
+    WHERE rp.usuario_id = ?
+      AND rp.data BETWEEN ? AND ?
+    ORDER BY rp.data
+  `).all(usuarioId, dataInicio, dataFim);
+}
+
+export function buscarRegrasDoPeriodo(usuarioId, dataInicio, dataFim) {
+  return db.prepare(`
+    SELECT
+      r.id,
+      r.tipo,
+      r.descricao,
+      r.natureza,
+      r.percentual,
+      r.valor_fixo,
+      r.ativo
+    FROM regras_desconto_adicional r
+    WHERE r.ativo = 1
+    ORDER BY r.id
+  `).all();
+}
+
+export function buscarRegrasAtivas() {
+  return db.prepare(`
+    SELECT
+      r.id,
+      r.tipo,
+      r.descricao,
+      r.natureza,
+      r.percentual,
+      r.valor_fixo,
+      r.ativo
+    FROM regras_desconto_adicional r
+    WHERE r.ativo = 1
+    ORDER BY r.id
+  `).all();
+}
